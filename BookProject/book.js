@@ -3,9 +3,9 @@ function Book(title, author, pages, read){
     this.author=author;
     this.pages=pages;
     this.read=read;
-    this.info = function(){
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "" : "not "}read`;
-    }
+    //this.info = function(){
+    //    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "" : "not "}read`;
+    //}
 }
 
 function createBook(form){
@@ -20,11 +20,48 @@ function addBookToLibrary(book) {
 }
 
 function render(myLibrary){
-    body = document.querySelector('body');
+    table = document.querySelector("table");
+    table.deleteTHead();
+    let thead = table.createTHead();
+    let row = thead.insertRow()
+    let cell = row.insertCell();
+    let text = document.createTextNode("Title");
+    cell.appendChild(text);
+    cell = row.insertCell();
+    text = document.createTextNode("Author");
+    cell.appendChild(text);
+    cell = row.insertCell();
+    text = document.createTextNode("Pages");
+    cell.appendChild(text);
+    cell = row.insertCell();
+    text = document.createTextNode("Read?");
+    cell.appendChild(text);
 
+    myLibrary.forEach(book=>{
+        row = thead.insertRow();
+        for(key in book){
+            cell = row.insertCell();
+            text = document.createTextNode(book[key]);
+            cell.appendChild(text);
+        }
+        cell = row.insertCell();
+        remove = document.createElement('button');
+    })
+    form = document.querySelector('form');
+    form.style.display = "None";
+    return false;
+
+}
+
+function showForm(){
+    form = document.querySelector('form');
+    form.style.display = "Block";
 }
 
 let myLibrary = [];
 form = document.querySelector('form');
-submit=form.querySelector('button')
-submit.addEventListener("click", ()=>{return createBook(this.form)});
+form.style.display = "None";
+newBook = document.querySelector("#newBook");
+newBook.addEventListener("click", ()=>{showForm()});
+submit=form.querySelector('button');
+submit.addEventListener("click", ()=>{createBook(this.form); return render(myLibrary);});
