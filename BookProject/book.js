@@ -9,14 +9,21 @@ function Book(title, author, pages, read){
 }
 
 function createBook(form){
-    console.log("yo");
     body = document.querySelector('body');
-    book = new Book(form.title.value, form.author.value, form.pages.value, form.read.value);
+    book = new Book(form.title.value, form.author.value, form.pages.value, form.read.checked);
     addBookToLibrary(book);
 }
 
 function addBookToLibrary(book) {
   myLibrary.push(book)
+}
+
+function removeBook(button){
+    book = button.target.dataset.book;
+    console.log(book)
+    myLibrary.splice(book, 1);
+    console.log(myLibrary);
+    render(myLibrary);
 }
 
 function render(myLibrary){
@@ -37,6 +44,7 @@ function render(myLibrary){
     text = document.createTextNode("Read?");
     cell.appendChild(text);
 
+    let count = 0;
     myLibrary.forEach(book=>{
         row = thead.insertRow();
         for(key in book){
@@ -46,7 +54,12 @@ function render(myLibrary){
         }
         cell = row.insertCell();
         remove = document.createElement('button');
+        remove.dataset.book = count;
+        remove.addEventListener("click", removeBook);
+        cell.appendChild(remove);
+        count += 1;
     })
+
     form = document.querySelector('form');
     form.style.display = "None";
     return false;
