@@ -9,9 +9,10 @@ function Book(title, author, pages, read){
 }
 
 function createBook(form){
-    body = document.querySelector('body');
+    form = form.target.form;
     book = new Book(form.title.value, form.author.value, form.pages.value, form.read.checked);
     addBookToLibrary(book);
+    return render(myLibrary);
 }
 
 function addBookToLibrary(book) {
@@ -77,4 +78,4 @@ form.style.display = "None";
 newBook = document.querySelector("#newBook");
 newBook.addEventListener("click", ()=>{showForm()});
 submit=form.querySelector('button');
-submit.addEventListener("click", ()=>{createBook(this.form); return render(myLibrary);});
+submit.addEventListener("click", createBook);
