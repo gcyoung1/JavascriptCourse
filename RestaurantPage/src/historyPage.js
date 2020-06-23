@@ -1,12 +1,17 @@
 export function loadPage(){
-    let div = document.querySelector('#content');
+    let container = document.querySelector('#content');
+    let prev = container.querySelector('div');
+    container.removeChild(prev);
+    let div=document.createElement('div');    
     let header = document.createElement('h1');
     let image = document.createElement('img');
     image.src = "https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg";
-    header.textContent="Lucciano's Vegan Italian Restaurant";
+    header.textContent="Our Storied History";
     let p = document.createElement('p');
-    p.textContent="Lorem Ipsem";
+    p.textContent="Lucciano studied abroad in Italy his Junior year of college. His trip having been cut short by a global pandemic, Luciano opened this.";
     div.appendChild(header);
     div.appendChild(image);
     div.appendChild(p);
+    container.appendChild(div);
+
 }
